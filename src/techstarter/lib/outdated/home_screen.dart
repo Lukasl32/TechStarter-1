@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gui/main.dart';
 import 'button_sheet.dart'; // Import ButtonSheet screen
 
-class HomeScreen extends StatelessWidget {
+class HomeScreenOld extends StatelessWidget {
   final String userSurname;
   final String userName;
 
-  HomeScreen({required this.userSurname, required this.userName});
+  HomeScreenOld({required this.userSurname, required this.userName});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 145, 192, 33),
+        backgroundColor: baseColor,
         elevation: 4,
         centerTitle: true,
         title: Image.asset(
@@ -24,7 +25,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ButtonSheet()),
+                MaterialPageRoute(builder: (context) => ButtonSheetOld()),
               );
             },
           ),
@@ -75,8 +76,8 @@ class HomeScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(3),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 66, 66, 66), // Dark background
-                  border: Border.all(color: Color.fromARGB(255, 66, 66, 66), width: 2),
+                  color: baseColor1, // Dark background
+                  border: Border.all(color: baseColor1, width: 2),
                   borderRadius: BorderRadius.circular(10), // Rounded corners
                 ),
                 child: Text(
@@ -100,7 +101,7 @@ class HomeScreen extends StatelessWidget {
   Widget _buildButton(String text) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color.fromARGB(255, 66, 66, 66), // Dark grey color
+        backgroundColor: baseColor1, // Dark grey color
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // Rounded shape
