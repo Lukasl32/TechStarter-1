@@ -9,13 +9,26 @@ class AllErrorPage extends StatefulWidget {
 }
 
 class _AllErrorPageState extends State<AllErrorPage> {
+  List defects = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // TODO: Fetch defects from database
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(padding: const EdgeInsets.all(10), children: [
-      ErrorItem(),
-      ErrorItem(),
-      ErrorItemNew(),
-    ]);
+    return ListView(
+      padding: const EdgeInsets.all(10),
+      children: [
+        /* for (Defect defect in defects)
+          ErrorNewItem(
+            defect: defect,
+          ), */
+      ],
+    );
   }
 }
 
@@ -82,11 +95,19 @@ class ErrorItemNew extends StatelessWidget {
   }
 }
 
-class ErrorItem extends StatelessWidget {
+class ErrorItem extends StatefulWidget {
   const ErrorItem({
     super.key,
+    //required this.defect,
   });
 
+  //final Defect defect;
+
+  @override
+  State<ErrorItem> createState() => _ErrorItemState();
+}
+
+class _ErrorItemState extends State<ErrorItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -94,20 +115,28 @@ class ErrorItem extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Text("Název chyby"),
+            //Text(widget.defect.name),
             Spacer(),
             Text("0"),
             SizedBox(width: 50),
             //FilledButton(onPressed: (){}, child: Text("Přidat")),
             CustomButton(
-              btnOnTap: () {},
+              btnOnTap: () {
+                // abs: updateRecord(number + 1)
+                // abs: fetchDefects()
+                setState(() {});
+              },
               btnIcon: Icons.add,
               btnColor: Colors.green,
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
             CustomButton(
-              btnOnTap: () {},
+              btnOnTap: () {
+                // abs: updateRecord(number - 1)
+                // abs: fetchDefects()
+                setState(() {});
+              },
               btnIcon: Icons.remove,
               btnColor: Colors.red,
             ),
