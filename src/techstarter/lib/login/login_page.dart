@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gui/outdated/home_screen.dart';
 import 'package:gui/main/main_screen.dart';
 import 'package:gui/main.dart';
 
@@ -40,7 +39,7 @@ class LoginPage extends StatelessWidget {
               ),
               onPressed: () {
                 // Assuming "Smith" is retrieved from the card login system
-                String loggedInSurname = "Smith";
+                //String loggedInSurname = "Smith";
 
                 Navigator.push(
                   context,

@@ -39,3 +39,24 @@ class _MyAppState extends State<MyApp>
     );
   }
 }
+
+/*
+Kusy vyrobené strojem
+aktuálně vyráběný prvek (kód)
+počet celkem žádaných kusů
+počet celkem vyrobených kusů
+počet kusů vyrobených strojem
+počet kusů označených vadou celkem
+počet kusů označený vadou na stroji
+
+
+U vad mít fotku chyby
+
+U vícejazyčných chyb mít primární jazyk velkým textem ale zároveň malý text bude mít česky jazyk kvůli mistrům
+
+https://www.youtube.com/results?search_query=nvsp+manta
+
+67 terminalů 1,5M
+7 mobilních
+
+*/

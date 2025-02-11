@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gui/main/all_error_page.dart';
 import 'package:gui/main/priority_error_page.dart';
 import 'package:gui/main.dart';
 
@@ -16,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _pages = [
     PriorityErrorPage(),
-    Text("Všechny chyby"),
+    AllErrorPage(),
     Text("..."),
   ];
 
