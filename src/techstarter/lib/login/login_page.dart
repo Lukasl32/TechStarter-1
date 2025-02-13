@@ -1,9 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:gui/main/main_screen.dart';
 import 'package:gui/main.dart';
+import 'package:flutter_libserialport/flutter_libserialport.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+    readCard();
+  }
+
+  void readCard() async {
+    await getCard();
+  }
+
+  Future getCard() async {
+    SerialPort serialPort = SerialPort("/dev/ttyAMA0");
+    serialPort.openRead();
+    var data = null;
+    while (true) {
+      data = serialPort.read(12, timeout: 100);
+      await Future.delayed(const Duration(milliseconds: 200));
+      if (data.isNotEmpty) {
+        break;
+      }
+    }
+    print(data);
+  }
 
   @override
   Widget build(BuildContext context) {
