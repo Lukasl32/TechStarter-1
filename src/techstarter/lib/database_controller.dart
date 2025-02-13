@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 // final db = sqlite3.open("./database.db");
@@ -213,7 +214,7 @@ class Defect {
       record[0] as int,
       record[1] as String,
       record[2] as String,
-      record[3] as bool,
+      record[3] as int == 1 ? true : false,
       product
     );
   }
@@ -241,5 +242,54 @@ class Defect {
     }
 
     return defects;
+  }
+}
+//TODO: Finish the LOG class 
+class Log {
+  int? id;
+  Operator operator;
+  Machine machine;
+  Product product;
+  Defect defect;
+
+  Log(this.id, this.operator, this.machine, this.product, this.defect);
+
+  static void commitToDatabase(operatorId, machineId, productId, defectId) {
+    db.execute(
+      """
+      INSERT INTO logs (operator_id, machine_id, product_id, defect_id)
+      VALUES ($operatorId, $machineId, $productId, $defectId);
+      """
+    );
+  }
+  static List<Log> getLogsByMachine(int machineId) {
+    var queryResponses = db.select(
+      """
+      SELECT id, operator_id, product_id, defect_id
+      FROM logs 
+      WHERE machine_id='$machineId'  
+      """
+    ).rows;
+    
+    List<Log> logs = [];
+
+    for (var log in queryResponses) {
+      Operator? operator = Operator.fetchById(log[1] as int);
+      Machine? machine = Machine.fetchById(machineId);
+      Product? product = Product.fetchById(log[2] as int);
+      Defect? defect = Defect.fetchById(log[3] as int);
+
+      if (operator == null || machine == null || product == null || defect == null) continue; 
+
+      logs.add(Log(
+        log[0] as int,
+        operator,
+        machine,
+        product,
+        defect
+      ));
+    }
+
+    return logs;
   }
 }
