@@ -76,14 +76,14 @@ class ErrorItemNew extends StatelessWidget {
               ),
             ),
             SizedBox(width: 40),
-            CustomButton(
+            CustomButtonForPriorityList(
               btnOnTap: () {},
               btnIcon: Icons.add,
               btnColor: Colors.green,
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
-            CustomButton(
+            CustomButtonForPriorityList(
               btnOnTap: () {},
               btnIcon: Icons.remove,
               btnColor: Colors.red,
@@ -120,7 +120,7 @@ class _ErrorItemState extends State<ErrorItem> {
             Text("0"),
             SizedBox(width: 50),
             //FilledButton(onPressed: (){}, child: Text("Přidat")),
-            CustomButton(
+            CustomButtonForPriorityList(
               btnOnTap: () {
                 // abs: updateRecord(number + 1)
                 // abs: fetchDefects()
@@ -131,7 +131,7 @@ class _ErrorItemState extends State<ErrorItem> {
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
-            CustomButton(
+            CustomButtonForPriorityList(
               btnOnTap: () {
                 // abs: updateRecord(number - 1)
                 // abs: fetchDefects()
