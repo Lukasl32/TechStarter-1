@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gui/custom_widgets/custom_button.dart';
 import 'package:gui/main.dart';
 
 class PriorityErrorPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 20), // Space between text and buttons
-    
+
           // 2x2 Button Grid Layout
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 40), // Moves buttons away from edges
@@ -27,13 +28,47 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
               mainAxisSpacing: 20, // More vertical space
               childAspectRatio: 3, // Slightly smaller width for buttons
               children: [
-                _buildButton("Most used"),
+                CustomButtonPrioriteDefect(),
                 _buildButton("Most used"),
                 _buildButton("Most used"),
                 _buildButton("Most used"),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomButtonPrioriteDefect extends StatelessWidget {
+  const CustomButtonPrioriteDefect({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          Text("Název primární chyby", style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+          Text("Český název chyby"),
+          Divider(height: 25,),
+          Row(
+            children: [
+              Spacer(),
+              CustomButtonForPriorityList(
+                btnOnTap: () {},
+                btnColor: Colors.green,
+                btnIcon: Icons.add,
+              ),
+              Spacer(),
+              CustomButtonForPriorityList(
+                btnOnTap: () {},
+                btnColor: Colors.red,
+                btnIcon: Icons.remove,
+              ),
+              Spacer(),
+            ],
+          )
         ],
       ),
     );
