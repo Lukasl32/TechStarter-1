@@ -61,14 +61,19 @@ class CustomCardPrioriteDefect extends StatelessWidget {
               SizedBox(width: 10),
               Text(
                 "50x",
-                style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               ),
               Spacer(),
               Column(
                 children: [
-                  Text(
-                    defectTitle,
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  Container(
+                    width: 380,
+                    child: Text(
+                      defectTitle,
+                      style: TextStyle(fontSize: (defectTitle.length < 20 ? 30 : 25), fontWeight: FontWeight.bold,),
+                      overflow: TextOverflow.visible,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   SizedBox(
                     height: 1,
