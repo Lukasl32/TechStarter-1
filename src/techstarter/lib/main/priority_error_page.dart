@@ -12,46 +12,80 @@ class PriorityErrorPage extends StatefulWidget {
 class _PriorityErrorPageState extends State<PriorityErrorPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 20), // Space between text and buttons
-
-          // 2x2 Button Grid Layout
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40), // Moves buttons away from edges
-            child: GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 2, // 2 buttons per row
-              crossAxisSpacing: 20, // More horizontal space
-              mainAxisSpacing: 20, // More vertical space
-              childAspectRatio: 3, // Slightly smaller width for buttons
-              children: [
-                CustomButtonPrioriteDefect(),
-                _buildButton("Most used"),
-                _buildButton("Most used"),
-                _buildButton("Most used"),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return CustomCardPrioriteDefect(
+      defectTitle: "Пошкоджений малюнок протектора",
+      defectTitleCzech: "protlačené vyhazovače",
     );
+
+    /*return Center(
+      child: GridView.count(
+        crossAxisCount: 2,
+        children: List.generate(4, (index) {
+          return CustomCardPrioriteDefect(defectTitle: "Titul defektu");
+        }),
+      ),
+    );*/
   }
 }
 
-class CustomButtonPrioriteDefect extends StatelessWidget {
-  const CustomButtonPrioriteDefect({super.key});
+class CustomCardPrioriteDefect extends StatelessWidget {
+  const CustomCardPrioriteDefect({super.key, required this.defectTitle, this.defectTitleCzech});
+
+  final String defectTitle;
+  final String? defectTitleCzech;
+
+  final Color _backgroundColor = const Color.fromARGB(255, 120, 120, 120);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      padding: EdgeInsets.all(10),
+      width: 500,
+      height: 250,
+      //color: Colors.amber,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        color: _backgroundColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 3,
+            spreadRadius: 3,
+          )
+        ],
+      ),
       child: Column(
         children: [
-          Text("Název primární chyby", style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-          Text("Český název chyby"),
-          Divider(height: 25,),
+          Row(
+            children: [
+              SizedBox(width: 10),
+              Text(
+                "50x",
+                style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+              ),
+              Spacer(),
+              Column(
+                children: [
+                  Text(
+                    defectTitle,
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  Text((defectTitleCzech == null ? "" : defectTitleCzech!)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                    child: Divider(
+                      height: 25,
+                    ),
+                  ),
+                ],
+              ),
+              Spacer(),
+            ],
+          ),
+          Spacer(),
           Row(
             children: [
               Spacer(),
@@ -68,7 +102,8 @@ class CustomButtonPrioriteDefect extends StatelessWidget {
               ),
               Spacer(),
             ],
-          )
+          ),
+          Spacer(),
         ],
       ),
     );
@@ -98,3 +133,32 @@ Widget _buildButton(String text) {
     ),
   );
 }
+
+/*
+Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 20), // Space between text and buttons
+
+          // 2x2 Button Grid Layout
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40), // Moves buttons away from edges
+            child: GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 2, // 2 buttons per row
+              crossAxisSpacing: 20, // More horizontal space
+              mainAxisSpacing: 20, // More vertical space
+              childAspectRatio: 3, // Slightly smaller width for buttons
+              children: [
+                CustomButtonPrioriteDefect(),
+                _buildButton("Most used"),
+                _buildButton("Most used"),
+                _buildButton("Most used"),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+ */
