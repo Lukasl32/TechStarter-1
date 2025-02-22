@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:gui/custom_widgets/custom_button.dart';
 import 'package:gui/database_controller.dart';
+import 'package:gui/main.dart';
 
 class AllErrorPage extends StatefulWidget {
   const AllErrorPage({super.key});
@@ -40,13 +43,25 @@ class _AllErrorPageState extends State<AllErrorPage> {
   }
 }
 
-class CustomDefectListCard extends StatelessWidget {
-  const CustomDefectListCard({super.key});
+class CustomDefectListCard extends StatefulWidget {
+  CustomDefectListCard({super.key, required this.defect});
 
+  Defect defect;
+
+  //final String defectTitle;
+  //final String defectTitleCzech;
+  //int defectCount;
+
+  @override
+  State<CustomDefectListCard> createState() => _CustomDefectListCardState();
+}
+
+class _CustomDefectListCardState extends State<CustomDefectListCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5, // Adds a slight shadow for better contrast
+      color: baseColor2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // Rounded corners
       ),
@@ -59,14 +74,14 @@ class CustomDefectListCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Toto je text v ukrajinštině",
+                  widget.defect.name,
                   style: TextStyle(
                     fontSize: 25, // Increased font size
                     fontWeight: FontWeight.bold, // Made text bold
                   ),
                 ),
                 Text(
-                  "Toto je text v češtině",
+                  widget.defect.description,
                   style: TextStyle(
                     fontSize: 15,
                   ),
@@ -75,7 +90,7 @@ class CustomDefectListCard extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              "3",
+              widget.defect.number.toString(),
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
