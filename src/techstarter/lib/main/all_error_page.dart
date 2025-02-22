@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:gui/custom_widgets/custom_button.dart';
 import 'package:gui/database_controller.dart';
@@ -13,12 +11,6 @@ class AllErrorPage extends StatefulWidget {
 }
 
 class _AllErrorPageState extends State<AllErrorPage> {
-  List defects = [
-    Defect(1, 011552, "Nějaký název1", "Detailní popisek", true, Product(20)),
-    Defect(2, 026502, "Nějaký název2", "Detailní popisek", true, Product(20)),
-    Defect(3, 021252, "Nějaký název3", "Detailní popisek", true, Product(20)),
-    Defect(4, 025825, "Nějaký název4", "Detailní popisek", true, Product(20)),
-  ];
 
   @override
   void initState() {
@@ -48,10 +40,6 @@ class CustomDefectListCard extends StatefulWidget {
   CustomDefectListCard({super.key, required this.defect});
 
   Defect defect;
-
-  //final String defectTitle;
-  //final String defectTitleCzech;
-  //int defectCount;
 
   @override
   State<CustomDefectListCard> createState() => _CustomDefectListCardState();
@@ -107,7 +95,6 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
               btnColor: Colors.green,
             ),
             SizedBox(width: 10),
-            //FilledButton(onPressed: () {}, child: Text("Odebrat")),
             CustomButtonForList(
               btnOnTap: () {
                 widget.defect.updateCountByOneDown();
