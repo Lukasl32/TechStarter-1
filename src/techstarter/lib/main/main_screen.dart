@@ -62,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/sigmaplast (2).png"),
+                      image: AssetImage("assets/background.PNG"),
                       fit: BoxFit.cover,
                     ),
                   ),
