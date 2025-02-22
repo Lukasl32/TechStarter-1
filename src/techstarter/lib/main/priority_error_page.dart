@@ -96,7 +96,7 @@ class CustomCardPrioriteDefect extends StatelessWidget {
                   Spacer(),
                   Column(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 380,
                         child: Text(
                           defectTitle,
