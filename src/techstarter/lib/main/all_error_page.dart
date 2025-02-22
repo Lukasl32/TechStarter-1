@@ -79,7 +79,7 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
             ),
             Spacer(),
             Text(
-              widget.defect.count.toString(),
+              "${widget.defect.count}x",
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,

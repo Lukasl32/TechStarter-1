@@ -98,7 +98,7 @@ class _CustomDefectPrioriteListCardState extends State<CustomDefectPrioriteListC
                 children: [
                   SizedBox(width: 15),
                   Text(
-                    widget.defect.count.toString(),
+                    "${widget.defect.count}x",
                     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                   ),
                   Spacer(),
