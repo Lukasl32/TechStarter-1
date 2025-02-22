@@ -32,12 +32,13 @@ class _AllErrorPageState extends State<AllErrorPage> {
     return ListView(
       padding: const EdgeInsets.all(10),
       children: [
-        ErrorItem(),
+        /*ErrorItem(),
         ErrorItemNew(),
-        /* for (Defect defect in defects)
-          ErrorNewItem(
+        CustomDefectListCard(defect: ActiveDefects[0]),*/
+        for (Defect defect in ActiveDefects)
+          CustomDefectListCard(
             defect: defect,
-          ), */
+          ),
       ],
     );
   }
@@ -74,14 +75,14 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.defect.name,
+                  widget.defect.title,
                   style: TextStyle(
                     fontSize: 25, // Increased font size
                     fontWeight: FontWeight.bold, // Made text bold
                   ),
                 ),
                 Text(
-                  widget.defect.description,
+                  widget.defect.titleCzech,
                   style: TextStyle(
                     fontSize: 15,
                   ),
@@ -90,7 +91,7 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
             ),
             Spacer(),
             Text(
-              widget.defect.number.toString(),
+              widget.defect.count.toString(),
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -98,14 +99,20 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
             ),
             SizedBox(width: 40),
             CustomButtonForList(
-              btnOnTap: () {},
+              btnOnTap: () {
+                widget.defect.updateCountByOneUp();
+                setState(() {});
+              },
               btnIcon: Icons.add,
               btnColor: Colors.green,
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
             CustomButtonForList(
-              btnOnTap: () {},
+              btnOnTap: () {
+                widget.defect.updateCountByOneDown();
+                setState(() {});
+              },
               btnIcon: Icons.remove,
               btnColor: Colors.red,
             ),
