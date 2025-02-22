@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gui/custom_widgets/custom_button.dart';
+import 'package:gui/database_controller.dart';
 import 'package:gui/main.dart';
 
 class PriorityErrorPage extends StatefulWidget {
@@ -10,17 +11,18 @@ class PriorityErrorPage extends StatefulWidget {
 }
 
 class _PriorityErrorPageState extends State<PriorityErrorPage> {
-  final List<Widget> w = [
+  /*final List<Widget> w = [
     //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
     //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
     //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
-    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
-    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
-    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
-    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    //CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    //CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    //CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    //CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
     //Container(color: Colors.red),
     //Container(color: Colors.red),
-  ];
+  ];*/
+  List<int> priorityDefectIndexes = getActiveDefectPriorityIndexes();
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,8 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
         // width / height: fixed for *all* items
         //childAspectRatio: 1,
       ),
-      itemBuilder: (context, i) => w[i],
-      itemCount: w.length,
+      itemBuilder: (context, i) => CustomDefectPrioriteListCard(defect: ActiveDefects[priorityDefectIndexes[i]]),
+      itemCount: priorityDefectIndexes.length,
     );
   }
 
@@ -56,14 +58,20 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
     );*/
 }
 
-class CustomDefectPrioriteListCard extends StatelessWidget {
-  const CustomDefectPrioriteListCard({super.key, required this.defectTitle, this.defectTitleCzech});
+class CustomDefectPrioriteListCard extends StatefulWidget {
+  CustomDefectPrioriteListCard({super.key, required this.defect});
 
-  final String defectTitle;
-  final String? defectTitleCzech;
+  Defect defect;
 
+  @override
+  State<CustomDefectPrioriteListCard> createState() => _CustomDefectPrioriteListCardState();
+}
+
+class _CustomDefectPrioriteListCardState extends State<CustomDefectPrioriteListCard> {
+  
   final Color _backgroundColor = baseColor2;
 
+  //final String defectTitle;
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -88,9 +96,9 @@ class CustomDefectPrioriteListCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SizedBox(width: 10),
+                  SizedBox(width: 15),
                   Text(
-                    "50x",
+                    widget.defect.count.toString(),
                     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                   ),
                   Spacer(),
@@ -99,9 +107,9 @@ class CustomDefectPrioriteListCard extends StatelessWidget {
                       SizedBox(
                         width: 380,
                         child: Text(
-                          defectTitle,
+                          widget.defect.title,
                           style: TextStyle(
-                            fontSize: (defectTitle.length < 20 ? 30 : 25),
+                            fontSize: (widget.defect.title.length < 20 ? 30 : 25),
                             fontWeight: FontWeight.bold,
                           ),
                           overflow: TextOverflow.visible,
@@ -111,7 +119,7 @@ class CustomDefectPrioriteListCard extends StatelessWidget {
                       SizedBox(
                         height: 1,
                       ),
-                      Text((defectTitleCzech == null ? "" : defectTitleCzech!)),
+                      Text((widget.defect.titleCzech == null ? "" : widget.defect.titleCzech!)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                         child: Divider(
@@ -128,13 +136,19 @@ class CustomDefectPrioriteListCard extends StatelessWidget {
                 children: [
                   Spacer(),
                   CustomButtonForPriorityList(
-                    btnOnTap: () {},
+                    btnOnTap: () {
+                      widget.defect.updateCountByOneUp();
+                      setState(() {});
+                    },
                     btnColor: Colors.green,
                     btnIcon: Icons.add,
                   ),
                   Spacer(),
                   CustomButtonForPriorityList(
-                    btnOnTap: () {},
+                    btnOnTap: () {
+                      widget.defect.updateCountByOneDown();
+                      setState(() {});
+                    },
                     btnColor: Colors.red,
                     btnIcon: Icons.remove,
                   ),
