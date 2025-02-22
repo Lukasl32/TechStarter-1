@@ -10,22 +10,50 @@ class PriorityErrorPage extends StatefulWidget {
 }
 
 class _PriorityErrorPageState extends State<PriorityErrorPage> {
+  final List<Widget> w = [
+    //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
+    //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
+    //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
+    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    //Container(color: Colors.red),
+    //Container(color: Colors.red),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return CustomCardPrioriteDefect(
+    return GridView.builder(
+      shrinkWrap: true,
+      //primary: true,
+      padding: EdgeInsets.all(20),
+      //physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 1,
+        crossAxisSpacing: 1,
+        // width / height: fixed for *all* items
+        //childAspectRatio: 1,
+      ),
+      itemBuilder: (context, i) => w[i],
+      itemCount: w.length,
+    );
+  }
+
+  /*return CustomCardPrioriteDefect(
       defectTitle: "Пошкоджений малюнок протектора",
       defectTitleCzech: "protlačené vyhazovače",
-    );
+    );*/
 
-    /*return Center(
+  /*return Center(
       child: GridView.count(
         crossAxisCount: 2,
-        children: List.generate(4, (index) {
+        children: List.generate(6, (index) {
           return CustomCardPrioriteDefect(defectTitle: "Titul defektu");
         }),
       ),
     );*/
-  }
 }
 
 class CustomCardPrioriteDefect extends StatelessWidget {
@@ -38,79 +66,86 @@ class CustomCardPrioriteDefect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      width: 500,
-      height: 250,
-      //color: Colors.amber,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: _backgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 3,
-            spreadRadius: 3,
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
+    return Wrap(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          width: 500,
+          height: 250,
+          //color: Colors.amber,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: _backgroundColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 3,
+                spreadRadius: 3,
+              )
+            ],
+          ),
+          child: Column(
             children: [
-              SizedBox(width: 10),
-              Text(
-                "50x",
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  SizedBox(width: 10),
+                  Text(
+                    "50x",
+                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [
+                      Container(
+                        width: 380,
+                        child: Text(
+                          defectTitle,
+                          style: TextStyle(
+                            fontSize: (defectTitle.length < 20 ? 30 : 25),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      Text((defectTitleCzech == null ? "" : defectTitleCzech!)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                        child: Divider(
+                          height: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                ],
               ),
               Spacer(),
-              Column(
+              Row(
                 children: [
-                  Container(
-                    width: 380,
-                    child: Text(
-                      defectTitle,
-                      style: TextStyle(fontSize: (defectTitle.length < 20 ? 30 : 25), fontWeight: FontWeight.bold,),
-                      overflow: TextOverflow.visible,
-                      textAlign: TextAlign.center,
-                    ),
+                  Spacer(),
+                  CustomButtonForPriorityList(
+                    btnOnTap: () {},
+                    btnColor: Colors.green,
+                    btnIcon: Icons.add,
                   ),
-                  SizedBox(
-                    height: 1,
+                  Spacer(),
+                  CustomButtonForPriorityList(
+                    btnOnTap: () {},
+                    btnColor: Colors.red,
+                    btnIcon: Icons.remove,
                   ),
-                  Text((defectTitleCzech == null ? "" : defectTitleCzech!)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                    child: Divider(
-                      height: 25,
-                    ),
-                  ),
+                  Spacer(),
                 ],
               ),
               Spacer(),
             ],
           ),
-          Spacer(),
-          Row(
-            children: [
-              Spacer(),
-              CustomButtonForPriorityList(
-                btnOnTap: () {},
-                btnColor: Colors.green,
-                btnIcon: Icons.add,
-              ),
-              Spacer(),
-              CustomButtonForPriorityList(
-                btnOnTap: () {},
-                btnColor: Colors.red,
-                btnIcon: Icons.remove,
-              ),
-              Spacer(),
-            ],
-          ),
-          Spacer(),
-        ],
-      ),
+        )
+      ],
     );
   }
 }
