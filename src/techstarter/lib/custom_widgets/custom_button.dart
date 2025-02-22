@@ -43,8 +43,8 @@ class CustomButtonForPriorityList extends StatelessWidget {
   final IconData btnIcon;
   final Color btnColor;
 
-  final double _btnHeight = 70;
-  final double _btnWidth = 160;
+  final double _btnHeight = 90;
+  final double _btnWidth = 180;
   final double _btnIconSize = 40;
   final double _btnBorderRadius = 20;
 
