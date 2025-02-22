@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gui/custom_widgets/custom_button.dart';
+import 'package:gui/database_controller.dart';
 
 class AllErrorPage extends StatefulWidget {
   const AllErrorPage({super.key});
@@ -9,7 +10,12 @@ class AllErrorPage extends StatefulWidget {
 }
 
 class _AllErrorPageState extends State<AllErrorPage> {
-  List defects = [];
+  List defects = [
+    Defect(1, 011552, "Nějaký název1", "Detailní popisek", true, Product(20)),
+    Defect(2, 026502, "Nějaký název2", "Detailní popisek", true, Product(20)),
+    Defect(3, 021252, "Nějaký název3", "Detailní popisek", true, Product(20)),
+    Defect(4, 025825, "Nějaký název4", "Detailní popisek", true, Product(20)),
+  ];
 
   @override
   void initState() {
@@ -23,11 +29,74 @@ class _AllErrorPageState extends State<AllErrorPage> {
     return ListView(
       padding: const EdgeInsets.all(10),
       children: [
+        ErrorItem(),
+        ErrorItemNew(),
         /* for (Defect defect in defects)
           ErrorNewItem(
             defect: defect,
           ), */
       ],
+    );
+  }
+}
+
+class CustomDefectListCard extends StatelessWidget {
+  const CustomDefectListCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5, // Adds a slight shadow for better contrast
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10), // Rounded corners
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            // "yapayapa" text with bigger size and bold weight
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Toto je text v ukrajinštině",
+                  style: TextStyle(
+                    fontSize: 25, // Increased font size
+                    fontWeight: FontWeight.bold, // Made text bold
+                  ),
+                ),
+                Text(
+                  "Toto je text v češtině",
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+            Spacer(),
+            Text(
+              "3",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(width: 40),
+            CustomButtonForList(
+              btnOnTap: () {},
+              btnIcon: Icons.add,
+              btnColor: Colors.green,
+            ),
+            SizedBox(width: 10),
+            //FilledButton(onPressed: () {}, child: Text("Odebrat")),
+            CustomButtonForList(
+              btnOnTap: () {},
+              btnIcon: Icons.remove,
+              btnColor: Colors.red,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -76,14 +145,14 @@ class ErrorItemNew extends StatelessWidget {
               ),
             ),
             SizedBox(width: 40),
-            CustomButtonForPriorityList(
+            CustomButtonForList(
               btnOnTap: () {},
               btnIcon: Icons.add,
               btnColor: Colors.green,
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
-            CustomButtonForPriorityList(
+            CustomButtonForList(
               btnOnTap: () {},
               btnIcon: Icons.remove,
               btnColor: Colors.red,
@@ -120,7 +189,7 @@ class _ErrorItemState extends State<ErrorItem> {
             Text("0"),
             SizedBox(width: 50),
             //FilledButton(onPressed: (){}, child: Text("Přidat")),
-            CustomButtonForPriorityList(
+            CustomButtonForList(
               btnOnTap: () {
                 // abs: updateRecord(number + 1)
                 // abs: fetchDefects()
@@ -131,7 +200,7 @@ class _ErrorItemState extends State<ErrorItem> {
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
-            CustomButtonForPriorityList(
+            CustomButtonForList(
               btnOnTap: () {
                 // abs: updateRecord(number - 1)
                 // abs: fetchDefects()

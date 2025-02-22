@@ -14,10 +14,10 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
     //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
     //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
     //Wrap(children: [Container(color: Colors.red, width: 20, height: 20)]),
-    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
-    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
-    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
-    CustomCardPrioriteDefect(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
+    CustomDefectPrioriteListCard(defectTitle: "Пошкоджений малюнок протектора", defectTitleCzech:  "český název"),
     //Container(color: Colors.red),
     //Container(color: Colors.red),
   ];
@@ -56,8 +56,8 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
     );*/
 }
 
-class CustomCardPrioriteDefect extends StatelessWidget {
-  const CustomCardPrioriteDefect({super.key, required this.defectTitle, this.defectTitleCzech});
+class CustomDefectPrioriteListCard extends StatelessWidget {
+  const CustomDefectPrioriteListCard({super.key, required this.defectTitle, this.defectTitleCzech});
 
   final String defectTitle;
   final String? defectTitleCzech;
