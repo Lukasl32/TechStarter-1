@@ -62,7 +62,7 @@ class CustomDefectPrioriteListCard extends StatelessWidget {
   final String defectTitle;
   final String? defectTitleCzech;
 
-  final Color _backgroundColor = const Color.fromARGB(255, 120, 120, 120);
+  final Color _backgroundColor = baseColor2;
 
   @override
   Widget build(BuildContext context) {
