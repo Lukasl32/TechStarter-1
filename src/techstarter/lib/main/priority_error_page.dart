@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gui/custom_widgets/custom_button.dart';
 import 'package:gui/database_controller.dart';
 import 'package:gui/main.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PriorityErrorPage extends StatefulWidget {
   const PriorityErrorPage({super.key});
@@ -26,21 +27,35 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return AlignedGridView.count(
+      padding: EdgeInsets.all(20),
+      crossAxisCount: 2,
+      mainAxisSpacing: 20,
+      crossAxisSpacing: 20,
+      itemBuilder: (context, index) {
+        return CustomDefectPriorityListCard(
+          defect: ActiveDefects[priorityDefectIndexes[index]],
+        );
+      },
+      itemCount: priorityDefectIndexes.length,
+    );
+
+    /* GridView.builder(
       shrinkWrap: true,
       //primary: true,
       padding: EdgeInsets.all(20),
       //physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 1,
-        crossAxisSpacing: 1,
+        mainAxisSpacing: 20,
+        crossAxisSpacing: 20,
         // width / height: fixed for *all* items
-        //childAspectRatio: 1,
       ),
-      itemBuilder: (context, i) => CustomDefectPrioriteListCard(defect: ActiveDefects[priorityDefectIndexes[i]]),
+      itemBuilder: (context, i) => CustomDefectPriorityListCard(
+        defect: ActiveDefects[priorityDefectIndexes[i]],
+      ),
       itemCount: priorityDefectIndexes.length,
-    );
+    ); */
   }
 
   /*return CustomCardPrioriteDefect(
@@ -58,23 +73,98 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
     );*/
 }
 
-class CustomDefectPrioriteListCard extends StatefulWidget {
-  CustomDefectPrioriteListCard({super.key, required this.defect});
+class CustomDefectPriorityListCard extends StatefulWidget {
+  const CustomDefectPriorityListCard({super.key, required this.defect});
 
-  Defect defect;
+  final Defect defect;
 
   @override
-  State<CustomDefectPrioriteListCard> createState() => _CustomDefectPrioriteListCardState();
+  State<CustomDefectPriorityListCard> createState() =>
+      _CustomDefectPriorityListCardState();
 }
 
-class _CustomDefectPrioriteListCardState extends State<CustomDefectPrioriteListCard> {
-  
+class _CustomDefectPriorityListCardState
+    extends State<CustomDefectPriorityListCard> {
   final Color _backgroundColor = baseColor2;
 
   //final String defectTitle;
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Container(
+      padding: EdgeInsets.all(10),
+
+      //color: Colors.amber,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        color: _backgroundColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 3,
+            spreadRadius: 3,
+          )
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(width: 15),
+              Text(
+                "${widget.defect.count}x",
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      widget.defect.title,
+                      style: TextStyle(
+                        fontSize: (widget.defect.title.length < 20 ? 30 : 25),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.visible,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      (widget.defect.titleCzech == null
+                          ? ""
+                          : widget.defect.titleCzech!),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const Divider(
+            height: 25,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomButtonForPriorityList(
+                btnOnTap: () {
+                  widget.defect.updateCountByOneUp();
+                  setState(() {});
+                },
+                btnColor: Colors.green,
+                btnIcon: Icons.add,
+              ),
+              CustomButtonForPriorityList(
+                btnOnTap: () {
+                  widget.defect.updateCountByOneDown();
+                  setState(() {});
+                },
+                btnColor: Colors.red,
+                btnIcon: Icons.remove,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+
+    /* Wrap(
       children: [
         Container(
           padding: EdgeInsets.all(10),
@@ -109,7 +199,8 @@ class _CustomDefectPrioriteListCardState extends State<CustomDefectPrioriteListC
                         child: Text(
                           widget.defect.title,
                           style: TextStyle(
-                            fontSize: (widget.defect.title.length < 20 ? 30 : 25),
+                            fontSize:
+                                (widget.defect.title.length < 20 ? 30 : 25),
                             fontWeight: FontWeight.bold,
                           ),
                           overflow: TextOverflow.visible,
@@ -119,9 +210,12 @@ class _CustomDefectPrioriteListCardState extends State<CustomDefectPrioriteListC
                       SizedBox(
                         height: 1,
                       ),
-                      Text((widget.defect.titleCzech == null ? "" : widget.defect.titleCzech!)),
+                      Text((widget.defect.titleCzech == null
+                          ? ""
+                          : widget.defect.titleCzech!)),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 0),
                         child: Divider(
                           height: 25,
                         ),
@@ -160,7 +254,7 @@ class _CustomDefectPrioriteListCardState extends State<CustomDefectPrioriteListC
           ),
         )
       ],
-    );
+    ); */
   }
 }
 
