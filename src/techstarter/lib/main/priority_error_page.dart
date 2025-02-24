@@ -117,19 +117,20 @@ class _CustomDefectPriorityListCardState
               Expanded(
                 child: Column(
                   children: [
-                    Text(
-                      widget.defect.title,
-                      style: TextStyle(
-                        fontSize: (widget.defect.title.length < 20 ? 30 : 25),
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: 425,
+                      child: Text(
+                        widget.defect.title,
+                        style: TextStyle(
+                          fontSize: (widget.defect.title.length < 20 ? 30 : 25),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.visible,
+                        textAlign: TextAlign.center,
                       ),
-                      overflow: TextOverflow.visible,
-                      textAlign: TextAlign.center,
                     ),
                     Text(
-                      (widget.defect.titleCzech == null
-                          ? ""
-                          : widget.defect.titleCzech!),
+                      (widget.defect.titleCzech == null ? "" : widget.defect.titleCzech!),
                     ),
                   ],
                 ),
