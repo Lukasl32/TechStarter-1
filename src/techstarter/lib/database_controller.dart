@@ -21,7 +21,16 @@ void initializeDatabase(){
     );
     
     CREATE TABLE IF NOT EXISTS products (
-      id INTEGER PRIMARY KEY AUTOINCREMENT
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+      defect_0 INTEGER REFERENCES defects(id),
+      defect_1 INTEGER REFERENCES defects(id),
+      defect_2 INTEGER REFERENCES defects(id),
+      defect_3 INTEGER REFERENCES defects(id),
+      defect_4 INTEGER REFERENCES defects(id),
+      defect_5 INTEGER REFERENCES defects(id),
+      defect_6 INTEGER REFERENCES defects(id),
+      defect_7 INTEGER REFERENCES defects(id)
     );
 
     CREATE TABLE IF NOT EXISTS machines (
@@ -33,12 +42,13 @@ void initializeDatabase(){
     
     CREATE TABLE IF NOT EXISTS defects (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      number INT,
-      name VARCHAR(64),
-      description VARCHAR(128),
-      priority BOOL,
+      number INTEGER UNIQUE,
 
-      product_id INTEGER REFERENCES products(id)
+      cz_name VARCHAR(64) NOT NULL,
+      uk_name VARCHAR(64) NOT NULL,
+      HU_name VARCHAR(64) NOT NULL,
+
+      description VARCHAR(128)
     );
 
     CREATE TABLE IF NOT EXISTS logs (
@@ -57,23 +67,45 @@ void initializeDatabase(){
     """
     INSERT INTO operators (name, surname, rfid, language)
     VALUES ('Jane', 'Doe', '0B00611CACDA', 'CZ'),
-           ('John', 'Doe', '0B00611CB0C6', 'EN');
+           ('John', 'Doe', '0B00611CB0C6', 'UK');
 
-    INSERT INTO products (id)
-    VALUES (1);
+    INSERT INTO products (id, defect_0, defect_1, defect_2, defect_3, defect_4, defect_5, defect_6, defect_7)
+    VALUES (1, 1, 2, 3, 4, 5, 6, 7, 8);
 
     INSERT INTO machines (number, product_id)
     VALUES (1, 1);
 
-    INSERT INTO defects (number, name, description, priority, product_id)
-    VALUES (1, 'Name1', 'description1', true, 1),
-           (2, 'Name2', 'description2', true, 1),
-           (3, 'Name3', 'description3', true, 1),
-           (4, 'Name4', 'description4', true, 1),
-           (5, 'Name5', 'description5', false, 1),
-           (6, 'Name6', 'description6', false, 1),
-           (7, 'Name7', 'description7', false, 1),
-           (8, 'Name8', 'description8', false, 1);
+    INSERT INTO defects (number, cz_name, uk_name, hu_name)
+    VALUES (101010, 'deformace', 'Деформації', 'Deformáció'),
+           (101020, 'chybějící zálisek', 'відсутня вставка', 'hiányzó betét'),
+           (101030, 'jiná vada', 'Інший дефект', 'Egyéb hiba'),
+           (101040, 'nedolité', 'без доливання', 'Feltöltés nélkül'),
+           (101050, 'prasklé', 'Тріщини', 'Dilis'),
+           (101060, 'propadlé', 'Затонулих', 'Elsüllyedt'),
+           (101070, 'protlačené vyhazovače', 'Екструзійні ежектори', 'Extrudáló kidobók'),
+           (101080, 'rozjezd výroby', 'Запуск виробництва', 'A gyártás megkezdése'),
+           (101090, 'spáleniny', 'Бернс', 'Burns'),
+           (101100, 'studený spoj', 'Холодний суглоб', 'Hideg ízület'),
+           (101110, 'špatně opracované', 'погано оброблений', 'rosszul megmunkált'),
+           (101120, 'vadný rozměr', 'Дефектний розмір', 'Hibás méret'),
+           (101130, 'vlas od vtoku', 'Волосинка з вхідного отвору', 'Egy hajszál a bemeneti nyílásból'),
+           (101140, 'záměna materiálu', 'Заміна матеріалу', 'Anyaghelyettesítés'),
+           (101150, 'zástřik', 'Ін''єкцій', 'injekció'),
+           (101160, 'strojem', 'Машина', 'Gép'),
+           (102020, 'lesklé skvrny', 'блискучі плями, ', 'Fényes foltok'),
+           (102030, 'mastné', 'Жирні', 'Zsíros'),
+           (102040, 'nečistoty v materiálu', 'Домішки в матеріалі', 'Szennyeződések az anyagban'),
+           (102050, 'neprobarvené', 'незабарвлений', 'színtelen'),
+           (102060, 'páry', 'Пари', 'Párok'),
+           (102070, 'poškozený dezén', 'Пошкоджений малюнок протектора', 'Sérült futófelület mintázat'),
+           (102080, 'poškrábané', 'Подряпав', 'Karcos'),
+           (102090, 'stříbření', 'Сріблення', 'Ezüstözés'),
+           (102100, 'šlíry', 'Schlieres', 'Schlieres'),
+           (500010, 'odlupující se chrom', 'пілінг хрому', 'hámló króm'),
+           (500020, 'špatně opracované', 'погано оброблений', 'rosszul megmunkált'),
+           (500030, 'ostatní vada galvaniky', 'Інші дефекти гальванічного покриття', 'A galvanizálás egyéb hibái'),
+           (500040, 'puchýře', 'Пухирі', 'Hólyagok'),
+           (500050, 'vada surového kusu', 'Дефект необробленого шматка', 'Nyers darab hiba');
     """
   );
 }
@@ -135,13 +167,14 @@ class Operator {
 }
 class Product {
   int id;
+  List<int> defects;
 
-  Product(this.id);
+  Product(this.id, this.defects);
 
   static Product? fetchById(int id) {
     var queryResponse = db.select(
       """
-      SELECT id
+      SELECT id, defect_0, defect_1, defect_2, defect_3, defect_4, defect_5, defect_6, defect_7
       FROM products 
       WHERE id='$id'
       LIMIT 1
@@ -150,8 +183,16 @@ class Product {
 
     if (queryResponse.isEmpty) return null;
     var record = queryResponse[0];
+
+    List<int> defects = [];
+    for (int i = 1; i <= 8; i++) {
+      if (record[i] == null) continue;
+      defects.add(record[i] as int);
+    }
+
     return Product(
-      record[0] as int
+      record[0] as int,
+      defects
     );
   }
 }
@@ -177,7 +218,14 @@ class Machine {
     var record = queryResponse[0];
     Product? product = Product.fetchById(record[1] as int);
     if (product == null) return null;
-    List<Defect> defects = Defect.fetchByProduct(product);
+
+    List<Defect> defects = [];
+    for (int i = 0; i < product.defects.length; i++) {
+      Defect? defect = Defect.fetchById(product.defects[i]);
+      if (defect == null) continue;
+      defects.add(defect);
+    }
+
     return Machine(
       id,
       record[0] as int,
@@ -188,60 +236,51 @@ class Machine {
 }
 class Defect {
   int id, number;
-  String name, description;
-  bool priority;
-  Product product;
+  Map<String, String> name;
+  String description;
 
-  Defect(this.id, this.number, this.name, this.description, this.priority, this.product);
+  Defect(this.id, this.number, this.name, this.description);
 
   static Defect? fetchById(int id){
     var queryResponse = db.select(
       """
-      SELECT number, name, description, priority, product_id
+      SELECT number, cz_name, uk_name, hu_name, description
       FROM defects 
       WHERE id='$id'
-      LIMIT 1    
+      LIMIT 1
       """
     ).rows;
-  
 
     if (queryResponse.isEmpty) return null;
     var record = queryResponse[0];
-    Product? product = Product.fetchById(record[4] as int);
-    if (product == null) return null;
+
     return Defect(
       id,
       record[0] as int,
-      record[1] as String,
-      record[2] as String,
-      record[3] as int == 1 ? true : false,
-      product
+      {'CZ': record[1] as String, 'UK': record[2] as String, 'HU': record[3] as String},
+      record[4].toString()
     );
   }
 
-  static List<Defect> fetchByProduct(Product product) {
-    var queryResponses = db.select(
+  static Defect? fetchByNumber(int number){
+    var queryResponse = db.select(
       """
-      SELECT id, number, name, description, priority
+      SELECT id, cz_name, uk_name, hu_name, description
       FROM defects 
-      WHERE product_id='${product.id}'  
+      WHERE id='$number'
+      LIMIT 1
       """
     ).rows;
-    
-    List<Defect> defects = [];
+  
+    if (queryResponse.isEmpty) return null;
+    var record = queryResponse[0];
 
-    for (var defect in queryResponses) {
-      defects.add(Defect(
-        defect[0] as int,
-        defect[1] as int,
-        defect[2] as String,
-        defect[3] as String,
-        defect[4] as int == 0 ? false : true,
-        product
-      ));
-    }
-
-    return defects;
+    return Defect(
+      record[0] as int,
+      number,
+      {'CZ': record[1] as String, 'UK': record[2] as String, 'HU': record[3] as String},
+      record[4] as String
+    );
   }
 }
 //TODO: Finish the LOG class 
