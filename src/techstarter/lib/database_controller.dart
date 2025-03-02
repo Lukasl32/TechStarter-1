@@ -7,7 +7,7 @@ import 'package:sqlite3/sqlite3.dart';
 final Database db = sqlite3.openInMemory(); //TODO: Change to .open() for showcase use
 
 void initializeDatabase(){
-  if (db.select("SELECT name FROM sqlite_master WHERE type='table';").isNotEmpty) return; //Check if databse was already initialized
+  if (db.select("SELECT name FROM sqlite_master WHERE type='table';").isNotEmpty) return; //Check if database was already initialized
 
   // Setup Databases
   db.execute (
@@ -48,16 +48,8 @@ void initializeDatabase(){
       uk_name VARCHAR(64) NOT NULL,
       HU_name VARCHAR(64) NOT NULL,
 
-      description VARCHAR(128)
-    );
-
-    CREATE TABLE IF NOT EXISTS logs (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-      operator_id INTEGER REFERENCES operators(id),
-      machine_id INTEGER REFERENCES machines(id),
-      product_id INTEGER REFERENCES products(id),
-      defect_id INTEGER REFERENCES defects(id)
+      description VARCHAR(128),
+      count INTEGER NOT NULL DEFAULT 0
     );
     """
   );
@@ -235,16 +227,16 @@ class Machine {
   }
 }
 class Defect {
-  int id, number;
+  int id, number, count;
   Map<String, String> name;
   String description;
 
-  Defect(this.id, this.number, this.name, this.description);
+  Defect(this.id, this.number, this.name, this.description, this.count);
 
   static Defect? fetchById(int id){
     var queryResponse = db.select(
       """
-      SELECT number, cz_name, uk_name, hu_name, description
+      SELECT number, cz_name, uk_name, hu_name, description, count
       FROM defects 
       WHERE id='$id'
       LIMIT 1
@@ -258,14 +250,15 @@ class Defect {
       id,
       record[0] as int,
       {'CZ': record[1] as String, 'UK': record[2] as String, 'HU': record[3] as String},
-      record[4].toString()
+      record[4].toString(),
+      record[5] as int
     );
   }
 
   static Defect? fetchByNumber(int number){
     var queryResponse = db.select(
       """
-      SELECT id, cz_name, uk_name, hu_name, description
+      SELECT id, cz_name, uk_name, hu_name, description, count
       FROM defects 
       WHERE id='$number'
       LIMIT 1
@@ -279,56 +272,20 @@ class Defect {
       record[0] as int,
       number,
       {'CZ': record[1] as String, 'UK': record[2] as String, 'HU': record[3] as String},
-      record[4] as String
+      record[4] as String,
+      record[5] as int
     );
   }
-}
-//TODO: Finish the LOG class 
-class Log {
-  int? id;
-  Operator operator;
-  Machine machine;
-  Product product;
-  Defect defect;
 
-  Log(this.id, this.operator, this.machine, this.product, this.defect);
-
-  static void commitToDatabase(operatorId, machineId, productId, defectId) {
+  // Increment log's count by one
+  void logDefect() {
+    count += 1;
     db.execute(
       """
-      INSERT INTO logs (operator_id, machine_id, product_id, defect_id)
-      VALUES ($operatorId, $machineId, $productId, $defectId);
+      UPDATE defects
+      SET count = count + 1
+      WHERE id = '$id';
       """
     );
-  }
-  static List<Log> getLogsByMachine(int machineId) {
-    var queryResponses = db.select(
-      """
-      SELECT id, operator_id, product_id, defect_id
-      FROM logs 
-      WHERE machine_id='$machineId'  
-      """
-    ).rows;
-    
-    List<Log> logs = [];
-
-    for (var log in queryResponses) {
-      Operator? operator = Operator.fetchById(log[1] as int);
-      Machine? machine = Machine.fetchById(machineId);
-      Product? product = Product.fetchById(log[2] as int);
-      Defect? defect = Defect.fetchById(log[3] as int);
-
-      if (operator == null || machine == null || product == null || defect == null) continue; 
-
-      logs.add(Log(
-        log[0] as int,
-        operator,
-        machine,
-        product,
-        defect
-      ));
-    }
-
-    return logs;
   }
 }
