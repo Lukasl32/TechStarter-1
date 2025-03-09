@@ -279,11 +279,22 @@ class Defect {
 
   // Increment log's count by one
   void logDefect() {
-    count += 1;
+    count++;
     db.execute(
       """
       UPDATE defects
       SET count = count + 1
+      WHERE id = '$id';
+      """
+    );
+  }
+
+  void unLogDefect(){
+    count--;
+    db.execute(
+      """
+      UPDATE defects
+      SET count = count - 1
       WHERE id = '$id';
       """
     );

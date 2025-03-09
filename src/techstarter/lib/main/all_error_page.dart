@@ -88,7 +88,7 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
             SizedBox(width: 40),
             CustomButtonForList(
               btnOnTap: () {
-                widget.defect.updateCountByOneUp();
+                widget.defect.logDefect();
                 setState(() {});
               },
               btnIcon: Icons.add,
@@ -97,7 +97,7 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
             SizedBox(width: 10),
             CustomButtonForList(
               btnOnTap: () {
-                widget.defect.updateCountByOneDown();
+                widget.defect.unLogDefect();
                 setState(() {});
               },
               btnIcon: Icons.remove,

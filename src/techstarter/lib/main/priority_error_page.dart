@@ -145,7 +145,7 @@ class _CustomDefectPriorityListCardState
             children: [
               CustomButtonForPriorityList(
                 btnOnTap: () {
-                  widget.defect.updateCountByOneUp();
+                  widget.defect.logDefect();
                   setState(() {});
                 },
                 btnColor: Colors.green,
@@ -153,7 +153,7 @@ class _CustomDefectPriorityListCardState
               ),
               CustomButtonForPriorityList(
                 btnOnTap: () {
-                  widget.defect.updateCountByOneDown();
+                  widget.defect.unLogDefect();
                   setState(() {});
                 },
                 btnColor: Colors.red,
