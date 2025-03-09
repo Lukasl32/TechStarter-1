@@ -1,25 +1,7 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:sqlite3/sqlite3.dart';
-
-List<Defect> ActiveDefects = [  // TODO: změnit pojmenování
-    Defect(1, 011552, "Nějaký název1", "Detailní popisek", true, Product(20)),
-    Defect(2, 026502, "Nějaký název2", "Detailní popisek", true, Product(20)),
-    Defect(3, 021252, "Nějaký název3", "Detailní popisek", true, Product(20)),
-    Defect(4, 025825, "Nějaký název4", "Detailní popisek", true, Product(20)),
-    Defect(5, 025825, "Nějaký název5", "Detailní popisek", false, Product(20)),
-    Defect(6, 025825, "Nějaký název6", "Detailní popisek", false, Product(20)),
-    Defect(7, 025825, "Nějaký název7", "Detailní popisek", false, Product(20)),
-    Defect(8, 025825, "Nějaký název8", "Detailní popisek", false, Product(20)),
-  ];
-
-List<int> getActiveDefectPriorityIndexes(){
-  List<int> list = [];
-  for (var element in ActiveDefects) {
-    if (element.priority) {
-      list.add(element.id);
-    }
-  }
-  return list;
-}
 
 // final db = sqlite3.open("./database.db");
 final Database db = sqlite3.openInMemory(); //TODO: Change to .open() for showcase use
