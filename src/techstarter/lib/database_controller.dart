@@ -231,18 +231,7 @@ class Defect {
   Map<String, String> name;
   String description;
 
-  String title="Пошкоджений малюнок протектора", titleCzech="poškozený dezén"; // TODO: potřeba zakomponovat do databáze
-  int count=0;  // TODO: potřeba zakomponovat do databáze
-
-  Defect(this.id, this.number, this.name, this.description, this.priority, this.product);
-
-  void updateCountByOneUp(){
-    count++; //! Protatím simulace přidání počtů defektů
-  }
-
-  void updateCountByOneDown(){
-    count--; //! Protatím simulace odebrání počtů defektů
-  }
+  Defect(this.id, this.number, this.name, this.description, this.count);
 
   static Defect? fetchById(int id){
     var queryResponse = db.select(
