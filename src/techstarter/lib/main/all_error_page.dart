@@ -28,7 +28,7 @@ class _AllErrorPageState extends State<AllErrorPage> {
         /*ErrorItem(),
         ErrorItemNew(),
         CustomDefectListCard(defect: ActiveDefects[0]),*/
-        for (Defect defect in ActiveDefects)
+        for (Defect defect in getActiveDefects(machineID))
           CustomDefectListCard(
             defect: defect,
           ),

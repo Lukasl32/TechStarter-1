@@ -35,7 +35,7 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
       crossAxisSpacing: 20,
       itemBuilder: (context, index) {
         return CustomDefectPriorityListCard(
-          defect: ActiveDefects[priorityDefectIndexes[index]],
+          defect: getActiveDefects(machineID)[priorityDefectIndexes[index]],
         );
       },
       itemCount: priorityDefectIndexes.length,

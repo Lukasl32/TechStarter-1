@@ -230,6 +230,8 @@ class Defect {
   int id, number, count;
   Map<String, String> name; // Multijazyčná mapa názvů defektů [{"CZ" : ""}, {"UK" : ""}, {"HU" : ""}]
   String description;
+  //bool priority;  //!: Nová vlastnost reprezentující to že se daný defekt zobrazí na první stránce jako prioritní defekt 
+                    //TODO: NUTNA IMPLEMENTOVAT
 
   Defect(this.id, this.number, this.name, this.description, this.count);
 
@@ -299,4 +301,28 @@ class Defect {
       """
     );
   }
+}
+
+List<Defect> getActiveDefects(String machineID){
+  List<Defect> list = [];
+  
+  //TODO: databázová funkce, která vrátí všechny defekty sledované u výroby probíhající na daném stroji
+  //?: Machine ID je stringová hodnota uložená v souboru main.dart (její přesnou delku neznám ale je simulována na 9 míst)
+  //?: zavolání dané funkce sy vyřeším pří generování UI
+  //!: Pozor do defektu byla přidána nová vlasntnost "priority"
+
+  return list;
+}
+
+List<int> getActiveDefectPriorityIndexes(){
+  List<int> list = [];
+  //TODO: aktivovat funkci po implementování vlastnosti "priority" a funkce "getActiveDefects"
+  /*
+  for (var element in getActiveDefects()) {
+    if (element.priority) {
+      list.add(element.id);
+    }
+  }
+  */
+  return list;
 }
