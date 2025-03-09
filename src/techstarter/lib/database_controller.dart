@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 List<Defect> ActiveDefects = [  // TODO: změnit pojmenování

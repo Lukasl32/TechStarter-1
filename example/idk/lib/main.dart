@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:idk/login.dart';
 import 'package:idk/menu.dart';
 
 void main() {
