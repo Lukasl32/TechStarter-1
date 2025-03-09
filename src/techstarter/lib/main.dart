@@ -5,7 +5,7 @@ const Color baseColor = Color.fromARGB(255, 145, 192, 33);
 const Color baseColor1 = Color.fromARGB(255, 66, 66, 66);
 const Color baseColor2 = Color(0xFFf7f2fa);
 
-String machineID = "XX-585-YY";
+int machineID = 1;
 
 void main() {
   runApp(MyApp());

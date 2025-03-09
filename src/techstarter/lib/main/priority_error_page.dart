@@ -24,7 +24,7 @@ class _PriorityErrorPageState extends State<PriorityErrorPage> {
     //Container(color: Colors.red),
     //Container(color: Colors.red),
   ];*/
-  List<int> priorityDefectIndexes = getActiveDefectPriorityIndexes();
+  List<int> priorityDefectIndexes = getActiveDefectPriorityIndexes(machineID);
 
   @override
   Widget build(BuildContext context) {
