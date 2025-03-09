@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gui/database_controller.dart';
 import 'package:gui/login/login_screen.dart';
 
 const Color baseColor = Color.fromARGB(255, 145, 192, 33);
@@ -8,6 +9,8 @@ const Color baseColor2 = Color(0xFFf7f2fa);
 int machineID = 1;
 
 void main() {
+  initializeDatabase();
+
   runApp(MyApp());
 }
 
