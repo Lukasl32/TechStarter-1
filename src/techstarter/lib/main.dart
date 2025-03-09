@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gui/login/login_screen.dart';
 
-final Color baseColor = Color.fromARGB(255, 145, 192, 33);
-final Color baseColor1 = Color.fromARGB(255, 66, 66, 66);
+const Color baseColor = Color.fromARGB(255, 145, 192, 33);
+const Color baseColor1 = Color.fromARGB(255, 66, 66, 66);
+const Color baseColor2 = Color(0xFFf7f2fa);
 
 void main() {
   runApp(MyApp());
@@ -35,6 +36,8 @@ class _MyAppState extends State<MyApp>
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: true,
+      showSemanticsDebugger: false,
+      showPerformanceOverlay: false,
       home: LoginScreen2(),
     );
   }

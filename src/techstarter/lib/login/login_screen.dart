@@ -18,7 +18,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
         elevation: 4,
         centerTitle: true,
         title: Image.asset(
-          "assets/sigmaplast (1).png",
+          "assets/sigmaplast_logo_small.png",
           height: 75,
         ),
       ),

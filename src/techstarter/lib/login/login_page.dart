@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    readCard();
+    //readCard(); //TODO: zapnout kvůli přikládce karet
   }
 
   void readCard() async {
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/sigmaplast (2).png"),
+          image: AssetImage("assets/background_01.png"),
           fit: BoxFit.cover,
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gui/main/all_error_page.dart';
 import 'package:gui/main/priority_error_page.dart';
 import 'package:gui/main.dart';
+import 'package:gui/main/status_data_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -18,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     PriorityErrorPage(),
     AllErrorPage(),
-    Text("..."),
+    StatusDataPage(),
   ];
 
   @override
@@ -40,17 +41,17 @@ class _MainScreenState extends State<MainScreen> {
               NavigationRailDestination(
                 icon: Icon(Icons.favorite_border),
                 selectedIcon: Icon(Icons.favorite),
-                label: Text('First'),
+                label: Text('Prioritní'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.bookmark_border),
                 selectedIcon: Icon(Icons.book),
-                label: Text('Second'),
+                label: Text('Všechny'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.star_border),
                 selectedIcon: Icon(Icons.star),
-                label: Text('Third'),
+                label: Text('Status'),
               ),
             ],
           ),
@@ -62,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/sigmaplast (2).png"),
+                      image: AssetImage("assets/background_02.PNG"),
                       fit: BoxFit.cover,
                     ),
                   ),

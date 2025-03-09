@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "idk",
+            "cwd": "example\\idk",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "idk (profile mode)",
+            "cwd": "example\\idk",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "idk (release mode)",
+            "cwd": "example\\idk",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "techstarter",
+            "cwd": "src\\techstarter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "techstarter (profile mode)",
+            "cwd": "src\\techstarter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "techstarter (release mode)",
+            "cwd": "src\\techstarter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

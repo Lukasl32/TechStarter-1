@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gui/custom_widgets/custom_button.dart';
+import 'package:gui/database_controller.dart';
+import 'package:gui/main.dart';
 
 class AllErrorPage extends StatefulWidget {
   const AllErrorPage({super.key});
@@ -9,7 +11,6 @@ class AllErrorPage extends StatefulWidget {
 }
 
 class _AllErrorPageState extends State<AllErrorPage> {
-  List defects = [];
 
   @override
   void initState() {
@@ -23,11 +24,88 @@ class _AllErrorPageState extends State<AllErrorPage> {
     return ListView(
       padding: const EdgeInsets.all(10),
       children: [
-        /* for (Defect defect in defects)
-          ErrorNewItem(
+        /*ErrorItem(),
+        ErrorItemNew(),
+        CustomDefectListCard(defect: ActiveDefects[0]),*/
+        for (Defect defect in ActiveDefects)
+          CustomDefectListCard(
             defect: defect,
-          ), */
+          ),
       ],
+    );
+  }
+}
+
+class CustomDefectListCard extends StatefulWidget {
+  CustomDefectListCard({super.key, required this.defect});
+
+  Defect defect;
+
+  @override
+  State<CustomDefectListCard> createState() => _CustomDefectListCardState();
+}
+
+class _CustomDefectListCardState extends State<CustomDefectListCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5, // Adds a slight shadow for better contrast
+      color: baseColor2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10), // Rounded corners
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            // "yapayapa" text with bigger size and bold weight
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.defect.title,
+                  style: TextStyle(
+                    fontSize: 25, // Increased font size
+                    fontWeight: FontWeight.bold, // Made text bold
+                  ),
+                ),
+                Text(
+                  widget.defect.titleCzech,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+            Spacer(),
+            Text(
+              "${widget.defect.count}x",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(width: 40),
+            CustomButtonForList(
+              btnOnTap: () {
+                widget.defect.updateCountByOneUp();
+                setState(() {});
+              },
+              btnIcon: Icons.add,
+              btnColor: Colors.green,
+            ),
+            SizedBox(width: 10),
+            CustomButtonForList(
+              btnOnTap: () {
+                widget.defect.updateCountByOneDown();
+                setState(() {});
+              },
+              btnIcon: Icons.remove,
+              btnColor: Colors.red,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -76,14 +154,14 @@ class ErrorItemNew extends StatelessWidget {
               ),
             ),
             SizedBox(width: 40),
-            CustomButton(
+            CustomButtonForList(
               btnOnTap: () {},
               btnIcon: Icons.add,
               btnColor: Colors.green,
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
-            CustomButton(
+            CustomButtonForList(
               btnOnTap: () {},
               btnIcon: Icons.remove,
               btnColor: Colors.red,
@@ -120,7 +198,7 @@ class _ErrorItemState extends State<ErrorItem> {
             Text("0"),
             SizedBox(width: 50),
             //FilledButton(onPressed: (){}, child: Text("Přidat")),
-            CustomButton(
+            CustomButtonForList(
               btnOnTap: () {
                 // abs: updateRecord(number + 1)
                 // abs: fetchDefects()
@@ -131,7 +209,7 @@ class _ErrorItemState extends State<ErrorItem> {
             ),
             SizedBox(width: 10),
             //FilledButton(onPressed: () {}, child: Text("Odebrat")),
-            CustomButton(
+            CustomButtonForList(
               btnOnTap: () {
                 // abs: updateRecord(number - 1)
                 // abs: fetchDefects()
