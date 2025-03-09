@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gui/custom_widgets/custom_button.dart';
 import 'package:gui/database_controller.dart';
+import 'package:gui/language_select.dart';
 import 'package:gui/main.dart';
 
 class AllErrorPage extends StatefulWidget {
@@ -63,14 +64,14 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.defect.title,
+                  widget.defect.name[myLanguageCode]!,
                   style: TextStyle(
                     fontSize: 25, // Increased font size
                     fontWeight: FontWeight.bold, // Made text bold
                   ),
                 ),
                 Text(
-                  widget.defect.titleCzech,
+                  widget.defect.name[primaryLanguageCode]!,
                   style: TextStyle(
                     fontSize: 15,
                   ),

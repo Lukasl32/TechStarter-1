@@ -228,7 +228,7 @@ class Machine {
 }
 class Defect {
   int id, number, count;
-  Map<String, String> name;
+  Map<String, String> name; // Multijazyčná mapa názvů defektů [{"CZ" : ""}, {"UK" : ""}, {"HU" : ""}]
   String description;
 
   Defect(this.id, this.number, this.name, this.description, this.count);
