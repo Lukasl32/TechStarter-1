@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gui/main/all_error_page.dart';
 import 'package:gui/main/priority_error_page.dart';
 import 'package:gui/main.dart';
+import 'package:gui/main/status_data_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -18,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     PriorityErrorPage(),
     AllErrorPage(),
-    Text("..."),
+    StatusDataPage(),
   ];
 
   @override
