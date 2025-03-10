@@ -147,7 +147,7 @@ class _SecondCardState extends State<SecondCard> {
                       GaugeRange(
                         startValue: 0,
                         endValue: 50,
-                        color: Colors.red,
+                        color: Colors.green,
                       ),
                       GaugeRange(
                         startValue: 50,
@@ -157,7 +157,7 @@ class _SecondCardState extends State<SecondCard> {
                       GaugeRange(
                         startValue: 100,
                         endValue: 150,
-                        color: Colors.green,
+                        color: Colors.red,
                       ),
                     ],
                   ),
@@ -199,7 +199,7 @@ class _SecondCardState extends State<SecondCard> {
                       GaugeRange(
                         startValue: 0,
                         endValue: 50,
-                        color: Colors.red,
+                        color: Colors.green,
                       ),
                       GaugeRange(
                         startValue: 50,
@@ -209,7 +209,7 @@ class _SecondCardState extends State<SecondCard> {
                       GaugeRange(
                         startValue: 100,
                         endValue: 150,
-                        color: Colors.green,
+                        color: Colors.red,
                       ),
                     ],
                   ),
