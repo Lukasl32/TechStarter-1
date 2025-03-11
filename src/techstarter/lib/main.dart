@@ -67,7 +67,13 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
     // Pokud byla přiložena stejná karta, která byla předtím, neřeší se
     if (globals.operator?.rfid == cardId) {
-      debugPrint("Již přihlášen... $cardId");
+      debugPrint("Odhlašuji $cardId");
+      globals.operator = null;
+      navigatorKey.currentState?.push(
+        MaterialPageRoute(
+          builder: (context) => LoginScreen2(),
+        ),
+      );
       serialPort.close();
       return await getCard();
     }
