@@ -117,6 +117,9 @@ class SecondCard extends StatefulWidget {
 }
 
 class _SecondCardState extends State<SecondCard> {
+  final int maxDefectsMachine = 150;
+  final int maxDefectsOperator = 300;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -137,7 +140,7 @@ class _SecondCardState extends State<SecondCard> {
               SfRadialGauge(
                 axes: [
                   RadialAxis(
-                    maximum: 150,
+                    maximum: maxDefectsMachine.toDouble(),
                     pointers: [
                       NeedlePointer(
                         value: widget.defectsMachine.toDouble(),
@@ -146,17 +149,17 @@ class _SecondCardState extends State<SecondCard> {
                     ranges: [
                       GaugeRange(
                         startValue: 0,
-                        endValue: 50,
+                        endValue: maxDefectsMachine.toDouble() / 3,
                         color: Colors.green,
                       ),
                       GaugeRange(
-                        startValue: 50,
-                        endValue: 100,
+                        startValue: maxDefectsMachine.toDouble() / 3,
+                        endValue: maxDefectsMachine.toDouble() / 3 * 2,
                         color: Colors.orange,
                       ),
                       GaugeRange(
-                        startValue: 100,
-                        endValue: 150,
+                        startValue: maxDefectsMachine.toDouble() / 3 * 2,
+                        endValue: maxDefectsMachine.toDouble(),
                         color: Colors.red,
                       ),
                     ],
@@ -189,7 +192,7 @@ class _SecondCardState extends State<SecondCard> {
               SfRadialGauge(
                 axes: [
                   RadialAxis(
-                    maximum: 150,
+                    maximum: maxDefectsOperator.toDouble(),
                     pointers: [
                       NeedlePointer(
                         value: widget.defectsOperator.toDouble(),
@@ -198,17 +201,17 @@ class _SecondCardState extends State<SecondCard> {
                     ranges: [
                       GaugeRange(
                         startValue: 0,
-                        endValue: 50,
+                        endValue: maxDefectsOperator.toDouble() / 3,
                         color: Colors.green,
                       ),
                       GaugeRange(
-                        startValue: 50,
-                        endValue: 100,
+                        startValue: maxDefectsOperator.toDouble() / 3,
+                        endValue: maxDefectsOperator.toDouble() / 3 * 2,
                         color: Colors.orange,
                       ),
                       GaugeRange(
-                        startValue: 100,
-                        endValue: 150,
+                        startValue: maxDefectsOperator.toDouble() / 3 * 2,
+                        endValue: maxDefectsOperator.toDouble(),
                         color: Colors.red,
                       ),
                     ],
