@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    readCard(); //TODO: zapnout kvůli přikládce karet
+    //readCard(); //TODO: zapnout kvůli přikládce karet
   }
 
   @override
@@ -61,7 +61,14 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     }
     // 12 znakový hex string reprezentující ID karty - sloupec rfid v tabulce operators
     String cardId = String.fromCharCodes(data);
-    print(cardId);
+    debugPrint(cardId);
+
+    // Pokud byla přiložena stejná karta, která byla předtím, neřeší se
+    if (globals.operator?.rfid == cardId) {
+      debugPrint("Již přihlášen... $cardId");
+      return;
+    }
+
     // Přihlášení operátora podle RFID karty
     globals.operator = Operator.fetchByRfid(cardId);
     // Pokud se podařilo operátora v DB najít, přesměruje na hlavní obrazovku

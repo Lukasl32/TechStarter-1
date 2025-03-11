@@ -4,6 +4,7 @@ import 'package:gui/database_controller.dart';
 import 'package:gui/after_login_controller.dart';
 import 'package:gui/main.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:gui/globals.dart' as globals;
 
 class PriorityErrorPage extends StatefulWidget {
   const PriorityErrorPage({super.key});
@@ -121,9 +122,15 @@ class _CustomDefectPriorityListCardState
                     SizedBox(
                       width: 425,
                       child: Text(
-                        widget.defect.name[operatorLanguageCode]!,
+                        widget.defect.name[globals.operator!.language]!,
                         style: TextStyle(
-                          fontSize: (widget.defect.name[operatorLanguageCode]!.length < 20 ? 30 : 25),
+                          fontSize: (widget
+                                      .defect
+                                      .name[globals.operator!.language]!
+                                      .length <
+                                  20
+                              ? 30
+                              : 25),
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.visible,
@@ -131,7 +138,9 @@ class _CustomDefectPriorityListCardState
                       ),
                     ),
                     Text(
-                      (widget.defect.name[primaryLanguageCode] == null ? "" : widget.defect.name[primaryLanguageCode]!),
+                      (widget.defect.name[primaryLanguageCode] == null
+                          ? ""
+                          : widget.defect.name[primaryLanguageCode]!),
                     ),
                   ],
                 ),

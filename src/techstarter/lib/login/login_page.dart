@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gui/main/main_screen.dart';
 import 'package:gui/main.dart';
+import 'package:gui/globals.dart' as globals;
+import 'package:gui/database_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,6 +47,9 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 // Assuming "Smith" is retrieved from the card login system
                 //String loggedInSurname = "Smith";
+
+                // Simulace přihlášení pomocí rfid karty
+                globals.operator = Operator.fetchByRfid("0B00611CB0C6");
 
                 Navigator.push(
                   context,

@@ -3,6 +3,7 @@ import 'package:gui/custom_widgets/custom_button.dart';
 import 'package:gui/database_controller.dart';
 import 'package:gui/after_login_controller.dart';
 import 'package:gui/main.dart';
+import 'package:gui/globals.dart' as globals;
 
 class AllErrorPage extends StatefulWidget {
   const AllErrorPage({super.key});
@@ -12,7 +13,6 @@ class AllErrorPage extends StatefulWidget {
 }
 
 class _AllErrorPageState extends State<AllErrorPage> {
-
   @override
   void initState() {
     super.initState();
@@ -38,9 +38,9 @@ class _AllErrorPageState extends State<AllErrorPage> {
 }
 
 class CustomDefectListCard extends StatefulWidget {
-  CustomDefectListCard({super.key, required this.defect});
+  const CustomDefectListCard({super.key, required this.defect});
 
-  Defect defect;
+  final Defect defect;
 
   @override
   State<CustomDefectListCard> createState() => _CustomDefectListCardState();
@@ -64,7 +64,7 @@ class _CustomDefectListCardState extends State<CustomDefectListCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.defect.name[operatorLanguageCode]!,
+                  widget.defect.name[globals.operator!.language]!,
                   style: TextStyle(
                     fontSize: 25, // Increased font size
                     fontWeight: FontWeight.bold, // Made text bold
