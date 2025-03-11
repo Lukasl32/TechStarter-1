@@ -12,6 +12,8 @@ const Color baseColor2 = Color(0xFFf7f2fa);
 
 int machineID = 1;
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   initializeDatabase();
 
@@ -74,8 +76,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     // Pokud se podařilo operátora v DB najít, přesměruje na hlavní obrazovku
     // (Proměnná mounted je jenom Flutter věc)
     if (globals.operator != null && mounted) {
-      Navigator.push(
-        context,
+      navigatorKey.currentState?.push(
         MaterialPageRoute(
           builder: (context) => MainScreen(),
         ),
@@ -86,6 +87,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: true,
       showSemanticsDebugger: false,
       showPerformanceOverlay: false,
