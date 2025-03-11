@@ -68,7 +68,8 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     // Pokud byla přiložena stejná karta, která byla předtím, neřeší se
     if (globals.operator?.rfid == cardId) {
       debugPrint("Již přihlášen... $cardId");
-      return;
+      serialPort.close();
+      return await getCard();
     }
 
     // Přihlášení operátora podle RFID karty
@@ -82,6 +83,8 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         ),
       );
     }
+    serialPort.close();
+    return await getCard();
   }
 
   @override
